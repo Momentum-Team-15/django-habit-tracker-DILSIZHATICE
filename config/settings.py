@@ -13,10 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import environ
-import django_on_heroku
 
-django_on_heroku.settings(locals())
-del DATABASES['default']['OPTIONS']['sslmode']
 
 env = environ.Env(
     # set casting, default value
@@ -41,6 +38,11 @@ DEBUG = env('DEBUG')
 ALLOWED_HOSTS = []
 
 # Application definition
+if env("RENDER"):
+    ALLOWED_HOSTS.append(env("RENDER_EXTERNAL_HOSTNAME"))
+		DJANGO_SUPERUSER_USERNAME=env("DJANGO_SUPERUSER_USERNAME")
+    DJANGO_SUPERUSER_PASSWORD=env("DJANGO_SUPERUSER_PASSWORD")
+    DJANGO_SUPERUSER_EMAIL=env("DJANGO_SUPERUSER_EMAIL")
 
 INSTALLED_APPS = [
     'registration',
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+     "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
     'django_extensions',
     'habit',
@@ -56,6 +59,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -89,6 +93,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASE_URL='postgres://dbhatice:@127.0.0.1:5432/Cato'
+
+
+
 
 DATABASES = {
     'default': env.db(),
@@ -136,11 +143,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-STATIC_ROOT = BASE_DIR / "staticfiles" # <-- add this
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # add the following lines
 if not DEBUG: 
