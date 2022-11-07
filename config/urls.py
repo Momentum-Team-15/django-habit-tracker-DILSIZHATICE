@@ -16,11 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from habit import views
-from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
-    path('accounts/', include('registration.backends.default.urls')),
     path('', views.index, name="home"),
+    path('accounts/login/', views.login, name="login"),
+    path('habit/new', views.create_habit, name='create_habit'),
+    path('habit/<int:pk>/', views.habit_detail, name="habit_detail"),
+    path('habit/<int:habitpk>/edit', views.habit_edit, name='habit_edit'),
+    path('habit/<int:habitpk>/delete', views.habit_delete, name='habit_delete'),
+    path('record/<int:recordpk>/edit', views.record_edit, name='record_edit'),
+    path('record/<int:recordpk>/delete', views.record_delete, name='record_delete'),
+    path('record/new', views.create_record, name='create_record'),
 ]

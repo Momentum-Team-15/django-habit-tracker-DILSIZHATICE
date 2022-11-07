@@ -1,0 +1,36 @@
+  p {
+    color: rgba(244, 145, 14, 0.80); 
+    font-family: "Times New Roman", Times, serif;  
+    font-style: italic;
+    font-size: 14px;
+  }
+  
+  h2 {
+   color: #FA8072; //salmon 
+  }
+
+  body {
+    background-color: hsl(184, 87%, 94%);
+    font-weight: bold
+    text-align: justify;
+    padding: 30px;
+
+  }
+
+  div{
+    border: 3px solid currentColor;
+    text-align: justify;
+  }
+  
+  #div{
+    color: blue;
+  }
+
+  button {
+    color: #016898;
+  }
+  
+  button:hover {
+    color: #19B5FE;
+  }
+  

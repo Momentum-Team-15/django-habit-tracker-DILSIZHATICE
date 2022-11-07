@@ -1,6 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="links">
+    <div class="nav">
+        <p><a href="{% url 'home' %}">Home</a></p>
+    </div>
+</div>
 
-<h1> test </h1>
+<div class="info">
+    <div class="creating">
+        <h2>Habit Track</h2>
+        <p><a class="new_habit" href="{% url 'create_habit' %}">Add Habit </a></p>
+    </div>
+
+<div class="habitmeasure">
+    {% for habit in habits %}
+        <div class="habitmeasure2">
+            <h2><a href="{% url 'habit_detail' pk=habit.pk %}">{{ habit }}</a> for {{ habit.measurement }}</h2>
+            <p><a href="{% url 'habit_edit' habitpk=habit.pk %}">EDIT</a></p>
+            <p><a href="{% url 'create_record' %}">Create a daily entry to record your Habit</a></p>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

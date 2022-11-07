@@ -1,1 +1,32 @@
 {% extends 'base.html' %}
+
+{% block content %} 
+
+<p>{{ habit.name }} {{ habit.unit_of_measure }}</p>
+
+
+
+
+<p> Records: </p>
+
+{% for record in habit.records.all %}
+
+<p> {{ record.date}} {{ record.amount }} {{ habit.unit_of_measure}}</p>
+
+{% endfor %}
+
+
+<p><a href="{% url 'create_record' %}">Add a record</a></p>
+
+<a href="{% url 'habit_edit' habitpk=habit.pk %}">EDIT</a>
+
+<a href="{% url 'habit_delete' habitpk=habit.pk %}">DELETE</a>
+    
+{% endblock %} 
+
+
+
+
+
+
+

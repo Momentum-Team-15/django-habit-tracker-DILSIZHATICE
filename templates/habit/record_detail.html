@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+<p><a href="{% url 'home' %}">Home</a></p>
+
+     <h2>This is my Record Detail page called record_detail.html</h2>
+
+    <p> {{ record.name }}</p>
+
+    <a href="{% url 'record_edit' recordpk=record.pk %}">EDIT</a>
+
+    <a href="{% url 'record_delete' recordpk=record.pk %}">DELETE</a>
+    
+{% endblock %} 
